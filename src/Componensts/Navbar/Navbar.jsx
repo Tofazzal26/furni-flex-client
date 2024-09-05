@@ -25,7 +25,7 @@ const Navbar = () => {
         <a>
           <NavLink
             className={({ isActive }) => (isActive ? " text-[#1e99f5]" : "")}
-            to="/a"
+            to="/products"
           >
             Products
           </NavLink>
@@ -36,7 +36,7 @@ const Navbar = () => {
         <a>
           <NavLink
             className={({ isActive }) => (isActive ? " text-[#1e99f5]" : "")}
-            to="/a"
+            to="/categories"
           >
             Categories
           </NavLink>
@@ -47,7 +47,7 @@ const Navbar = () => {
         <a>
           <NavLink
             className={({ isActive }) => (isActive ? " text-[#1e99f5]" : "")}
-            to="/a"
+            to="/custom"
           >
             Custom
           </NavLink>
@@ -57,7 +57,7 @@ const Navbar = () => {
         <a>
           <NavLink
             className={({ isActive }) => (isActive ? " text-[#1e99f5]" : "")}
-            to="/a"
+            to="/blog"
           >
             Blog
           </NavLink>

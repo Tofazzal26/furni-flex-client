@@ -1,15 +1,31 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
+import { TbFidgetSpinner } from "react-icons/tb";
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { logInEmailPassword, loading } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   const handleSignIn = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
-    console.log({ email, password });
+    logInEmailPassword(email, password)
+      .then((result) => {
+        navigate(from);
+        toast.success("Login Success");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Please Enter A Valid Email And Password");
+      });
   };
   return (
     <div className="container mx-auto">
@@ -70,8 +86,17 @@ const SignIn = () => {
                     </a>
                   </label>
                 </div>
-                <button className="w-full bg-black py-3 text-white font-semibold text-lg mt-4 rounded-md">
-                  Signup
+                <button
+                  disabled={loading}
+                  className="w-full bg-black py-3 text-white font-semibold text-lg mt-4 rounded-md"
+                >
+                  {loading ? (
+                    <span className="flex justify-center items-center">
+                      <TbFidgetSpinner className="animate-spin" size={25} />
+                    </span>
+                  ) : (
+                    "Signin"
+                  )}
                 </button>
               </form>
               <div>
