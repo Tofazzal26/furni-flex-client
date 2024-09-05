@@ -1,7 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,7 +30,6 @@ const SignIn = () => {
                     type="email"
                     name="email"
                     required
-                    id=""
                     className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                   />
                   <h2 className="text-[14px] absolute top-[4px] left-4 text-gray-500 font-semibold">
@@ -41,7 +40,6 @@ const SignIn = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
-                    id=""
                     required
                     className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                   />
@@ -62,7 +60,6 @@ const SignIn = () => {
                 <div className="flex items-center mt-3 space-x-2">
                   <input
                     type="checkbox"
-                    id="terms"
                     className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     required
                   />

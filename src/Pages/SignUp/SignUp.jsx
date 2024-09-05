@@ -1,9 +1,18 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
+import { TbFidgetSpinner } from "react-icons/tb";
 const SignUp = () => {
+  const { createUser, updateUserProfile, loading } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from || "/";
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -11,7 +20,20 @@ const SignUp = () => {
     const lastName = event.target.lastName.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-    console.log({ name, lastName, email, password });
+    createUser(email, password)
+      .then((result) => {
+        updateUserProfile(name)
+          .then((res) => {
+            navigate(from);
+            toast.success("Signup Success");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -38,7 +60,6 @@ const SignUp = () => {
                       type="text"
                       name="name"
                       required
-                      id=""
                       className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                     />
                     <h2 className="text-[14px] absolute top-[4px] left-4 text-gray-500 font-semibold">
@@ -49,7 +70,6 @@ const SignUp = () => {
                     <input
                       type="text"
                       name="lastName"
-                      id=""
                       required
                       className="w-full outline-none rounded-md pb-[12px] pt-[22px] px-4 font-semibold border-2"
                     />
@@ -63,7 +83,6 @@ const SignUp = () => {
                     type="email"
                     name="email"
                     required
-                    id=""
                     className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                   />
                   <h2 className="text-[14px] absolute top-[4px] left-4 text-gray-500 font-semibold">
@@ -75,7 +94,6 @@ const SignUp = () => {
                     type={showPassword ? "text" : "password"}
                     name="password"
                     required
-                    id=""
                     className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                   />
                   <span
@@ -95,7 +113,6 @@ const SignUp = () => {
                 <div className="flex items-center mt-3 space-x-2">
                   <input
                     type="checkbox"
-                    id="terms"
                     className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                     required
                   />
@@ -106,8 +123,18 @@ const SignUp = () => {
                     </a>
                   </label>
                 </div>
-                <button className="w-full bg-black py-3 text-white font-semibold text-lg mt-4 rounded-md">
-                  Signup
+
+                <button
+                  disabled={loading}
+                  className={`w-full bg-black py-3 text-white font-semibold text-lg mt-4 rounded-md`}
+                >
+                  {loading ? (
+                    <span className="flex justify-center items-center">
+                      <TbFidgetSpinner className="animate-spin" size={25} />
+                    </span>
+                  ) : (
+                    "Signup"
+                  )}
                 </button>
               </form>
               <div>
