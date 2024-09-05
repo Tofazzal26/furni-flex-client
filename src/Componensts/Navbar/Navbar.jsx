@@ -10,22 +10,24 @@ const Navbar = () => {
       </li>
       <li>
         <a>
-          <NavLink to="/">Products</NavLink>
+          <NavLink to="/a">Products</NavLink>
+        </a>
+      </li>
+
+      <li>
+        <a>
+          <NavLink to="/a">Categories</NavLink>
+        </a>
+      </li>
+
+      <li>
+        <a>
+          <NavLink to="/a">Custom</NavLink>
         </a>
       </li>
       <li>
         <a>
-          <NavLink to="/">Categories</NavLink>
-        </a>
-      </li>
-      <li>
-        <a>
-          <NavLink to="/">Custom</NavLink>
-        </a>
-      </li>
-      <li>
-        <a>
-          <NavLink to="/">Blog</NavLink>
+          <NavLink to="/a">Blog</NavLink>
         </a>
       </li>
     </>
@@ -75,7 +77,12 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="flex-none">
+          <NavLink to="/signUp">
+            <button className="bg-[#1e99f5] px-6 py-2 rounded-md font-semibold text-white">
+              SignUp
+            </button>
+          </NavLink>
+          <div className="flex-none hidden">
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
