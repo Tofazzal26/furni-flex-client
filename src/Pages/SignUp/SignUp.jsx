@@ -1,7 +1,10 @@
 import { FcGoogle } from "react-icons/fc";
-import { FaGithub } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 const SignUp = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleSignUp = (event) => {
     event.preventDefault();
     const name = event.target.name.value;
@@ -14,8 +17,8 @@ const SignUp = () => {
   return (
     <div className="container mx-auto">
       <div className="my-4 md:my-10">
-        <div className="flex justify-center items-center">
-          <div className="bg-[#fafafa]">
+        <div className="grid grid-cols-1 md:grid-cols-2 md:w-[1000px] mx-auto">
+          <div className="bg-[#fafafa] col-span-1 flex justify-center items-center">
             <div className="p-2 md:p-8">
               <div>
                 <h2 className="text-[25px] font-semibold text-center">
@@ -66,11 +69,21 @@ const SignUp = () => {
                 </div>
                 <div className="relative mt-4">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     id=""
                     className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                   />
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute cursor-pointer top-[20px] right-[16px]"
+                  >
+                    {showPassword ? (
+                      <FaEye size={20} />
+                    ) : (
+                      <FaEyeSlash size={20} />
+                    )}
+                  </span>
                   <h2 className="text-[14px] absolute top-[4px] left-4 text-gray-500 font-semibold">
                     Password
                   </h2>
@@ -97,11 +110,11 @@ const SignUp = () => {
                 <div className="divider font-semibold">or</div>
                 <div>
                   <div className="mt-4 flex md:flex-row flex-col justify-between gap-4 items-center">
-                    <button className="flex px-4 py-3 w-full rounded-md justify-center items-center gap-2 border-2">
+                    <button className="flex px-3 py-3 w-full rounded-md justify-center items-center gap-2 border-2">
                       <FcGoogle size={30} />
                       Continue to Google
                     </button>
-                    <button className="flex px-4 py-3 w-full rounded-md justify-center items-center gap-2 border-2">
+                    <button className="flex px-3 py-3 w-full rounded-md justify-center items-center gap-2 border-2">
                       <FaGithub size={30} />
                       Continue to Github
                     </button>
@@ -113,6 +126,9 @@ const SignUp = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="col-span-1">
+            <img src="/LoginSide.png" alt="" className="w-full" />
           </div>
         </div>
       </div>
