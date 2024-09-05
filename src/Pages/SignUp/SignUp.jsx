@@ -37,6 +37,7 @@ const SignUp = () => {
                     <input
                       type="text"
                       name="name"
+                      required
                       id=""
                       className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                     />
@@ -49,6 +50,7 @@ const SignUp = () => {
                       type="text"
                       name="lastName"
                       id=""
+                      required
                       className="w-full outline-none rounded-md pb-[12px] pt-[22px] px-4 font-semibold border-2"
                     />
                     <h2 className="text-[14px] absolute top-[4px] left-4 text-gray-500 font-semibold">
@@ -60,6 +62,7 @@ const SignUp = () => {
                   <input
                     type="email"
                     name="email"
+                    required
                     id=""
                     className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                   />
@@ -71,6 +74,7 @@ const SignUp = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
+                    required
                     id=""
                     className="w-full outline-none pb-[12px] rounded-md pt-[22px] px-4 font-semibold border-2"
                   />
@@ -102,7 +106,7 @@ const SignUp = () => {
                     </a>
                   </label>
                 </div>
-                <button className="w-full bg-black py-4 text-white font-semibold text-lg mt-4 rounded-md">
+                <button className="w-full bg-black py-3 text-white font-semibold text-lg mt-4 rounded-md">
                   Signup
                 </button>
               </form>
@@ -120,8 +124,10 @@ const SignUp = () => {
                     </button>
                   </div>
                   <h2 className="text-center font-semibold mt-4">
-                    Have an account?{" "}
-                    <NavLink className="text-blue-600">Sign In</NavLink>
+                    Have an already account?{" "}
+                    <NavLink to="/signIn" className="text-blue-600">
+                      Sign In
+                    </NavLink>
                   </h2>
                 </div>
               </div>
