@@ -1,14 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
+import { AuthContext } from "./../../AuthProvider/AuthProvider";
 
 const Product = () => {
+  const { user, setCartCount, cartCount } = useContext(AuthContext);
   const [category, setCategory] = useState("rocking_chair");
   const [rocking, setRocking] = useState(true);
   const [side, setSide] = useState(true);
   const [lounge, setLounge] = useState(true);
-  const [itemPerPage, setItemPerPage] = useState(4);
+  const [itemPerPage, setItemPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(0);
 
   const { refetch, data: productData = { result: [], totalProducts: 0 } } =
@@ -71,10 +73,31 @@ const Product = () => {
     }
   };
 
+  const handleCartAdd = async (id) => {
+    const singleCart = await axios.get(
+      `http://localhost:4000/userProduct/${id}`,
+      { withCredentials: true }
+    );
+    const single = singleCart.data;
+    const updatedSingleCart = single.map((item) => ({
+      ...item,
+      email: user?.email,
+    }));
+
+    const cartPost = await axios.post(
+      "http://localhost:4000/userCartAdd",
+      updatedSingleCart[0],
+      { withCredentials: true }
+    );
+
+    if (cartPost.data.result.insertedId) {
+      setCartCount((prevCount) => prevCount + 1);
+    }
+  };
+
   return (
     <div>
       <div className="container mx-auto">
-        <h2 className="text-center my-6"> Product : {totalNumberProducts}</h2>
         <div className="grid grid-cols-1 md:grid-cols-6 gap-6 my-10">
           <div className="col-span-1 ">
             <div className="bg-gray-200 rounded-md md:min-h-screen">
@@ -109,7 +132,11 @@ const Product = () => {
           <div className="col-span-5">
             <div className="grid grid-cols-1 gap-4 md:gap-10 md:grid-cols-3">
               {product.map((item) => (
-                <ProductCard key={item._id} item={item} />
+                <ProductCard
+                  key={item._id}
+                  item={item}
+                  handleCartAdd={handleCartAdd}
+                />
               ))}
             </div>
           </div>

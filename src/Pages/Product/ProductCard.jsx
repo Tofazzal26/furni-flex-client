@@ -1,7 +1,7 @@
 import { MdOutlineEuroSymbol } from "react-icons/md";
 
-const ProductCard = ({ item }) => {
-  const { category, description, disPrice, image, off, price, title } =
+const ProductCard = ({ item, handleCartAdd }) => {
+  const { category, description, disPrice, image, off, price, title, _id } =
     item || {};
 
   return (
@@ -12,7 +12,6 @@ const ProductCard = ({ item }) => {
         className="object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
       />
       <div className="mt-6 mb-2">
-        <h2>Category: {category}</h2>
         <h2 className="text-[20px] font-bold tracking-wide">{title}</h2>
         <h2 className="text-[20px] flex items-center gap-4 my-2  font-bold tracking-wide">
           <span className="flex items-center">
@@ -27,7 +26,10 @@ const ProductCard = ({ item }) => {
         </h2>
       </div>
       <p className="text-gray-400 text-lg">{description}</p>
-      <button className="bg-black text-white font-semibold text-lg w-full rounded-md py-2 mt-4">
+      <button
+        onClick={() => handleCartAdd(_id)}
+        className="bg-black text-white font-semibold text-lg w-full rounded-md py-2 mt-4"
+      >
         Add to cart
       </button>
     </div>

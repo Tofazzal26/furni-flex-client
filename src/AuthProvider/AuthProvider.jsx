@@ -12,11 +12,13 @@ import {
 } from "firebase/auth";
 import auth from "./../../Firebase/firebase.config";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -30,7 +32,13 @@ const AuthProvider = ({ children }) => {
             { logged },
             { withCredentials: true }
           )
-          .then((res) => {});
+          .then(async () => {
+            const response = await axios.get(
+              `http://localhost:4000/cartCount/${logged}`,
+              { withCredentials: true }
+            );
+            setCartCount(response.data.count);
+          });
       } else {
         axios
           .post(
@@ -93,6 +101,8 @@ const AuthProvider = ({ children }) => {
     loading,
     setLoading,
     googleLogin,
+    setCartCount,
+    cartCount,
     gitHubLogin,
   };
 
