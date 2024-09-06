@@ -11,6 +11,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import auth from "./../../Firebase/firebase.config";
+import axios from "axios";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
@@ -19,7 +20,27 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      const logged = currentUser?.email || user?.email;
       setUser(currentUser);
+
+      if (currentUser) {
+        axios
+          .post(
+            "http://localhost:4000/jwt",
+            { logged },
+            { withCredentials: true }
+          )
+          .then((res) => {});
+      } else {
+        axios
+          .post(
+            "http://localhost:4000/logout",
+            { logged },
+            { withCredentials: true }
+          )
+          .then((res) => {});
+      }
+
       console.log(currentUser);
       setLoading(false);
     });
