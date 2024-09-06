@@ -12,6 +12,7 @@ const ProductCard = ({ item }) => {
         className="object-cover object-center w-full rounded-md h-72 dark:bg-gray-500"
       />
       <div className="mt-6 mb-2">
+        <h2>Category: {category}</h2>
         <h2 className="text-[20px] font-bold tracking-wide">{title}</h2>
         <h2 className="text-[20px] flex items-center gap-4 my-2  font-bold tracking-wide">
           <span className="flex items-center">

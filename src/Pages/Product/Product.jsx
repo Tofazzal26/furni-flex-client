@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 
 const Product = () => {
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("rocking_chair");
   const [rocking, setRocking] = useState(true);
   const [side, setSide] = useState(true);
   const [lounge, setLounge] = useState(true);
@@ -13,10 +13,10 @@ const Product = () => {
 
   const { refetch, data: productData = { result: [], totalProducts: 0 } } =
     useQuery({
-      queryKey: ["product", currentPage, itemPerPage],
+      queryKey: ["product", currentPage, itemPerPage, category],
       queryFn: async () => {
         const res = await axios.get(
-          `http://localhost:4000/allProduct?page=${currentPage}&size=${itemPerPage}`,
+          `http://localhost:4000/allProduct?page=${currentPage}&size=${itemPerPage}&category=${category}`,
           {
             withCredentials: true,
           }
