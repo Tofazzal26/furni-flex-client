@@ -7,11 +7,34 @@ import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { logInEmailPassword, loading } = useContext(AuthContext);
+  const { logInEmailPassword, loading, googleLogin, gitHubLogin } =
+    useContext(AuthContext);
 
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from || "/";
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((res) => {
+        navigate(from);
+        toast.success("Login Success");
+      })
+      .catch((err) => {
+        toast.error("Enter A Valid Google Account");
+      });
+  };
+
+  const handleGitHubLogin = () => {
+    gitHubLogin()
+      .then((res) => {
+        navigate(from);
+        toast.success("Login Success");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleSignIn = (event) => {
     event.preventDefault();
@@ -87,7 +110,7 @@ const SignIn = () => {
                   </label>
                 </div>
                 <button
-                  disabled={loading}
+                  disabled={loading === true}
                   className="w-full bg-black py-3 text-white font-semibold text-lg mt-4 rounded-md"
                 >
                   {loading ? (
@@ -103,11 +126,19 @@ const SignIn = () => {
                 <div className="divider font-semibold">or</div>
                 <div>
                   <div className="mt-4 flex md:flex-row flex-col justify-between gap-4 items-center">
-                    <button className="flex px-2 py-3 w-full rounded-md justify-center items-center gap-2 border-2">
+                    <button
+                      disabled={loading}
+                      onClick={handleGoogleLogin}
+                      className="flex px-2 py-3 w-full rounded-md justify-center items-center gap-2 border-2"
+                    >
                       <FcGoogle size={30} />
                       Continue to Google
                     </button>
-                    <button className="flex px-3 py-3 w-full rounded-md justify-center items-center gap-2 border-2">
+                    <button
+                      disabled={loading === true}
+                      onClick={handleGitHubLogin}
+                      className="flex px-3 py-3 w-full rounded-md justify-center items-center gap-2 border-2"
+                    >
                       <FaGithub size={30} />
                       Continue to Github
                     </button>

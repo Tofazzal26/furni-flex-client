@@ -6,7 +6,8 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
 import { TbFidgetSpinner } from "react-icons/tb";
 const SignUp = () => {
-  const { createUser, updateUserProfile, loading } = useContext(AuthContext);
+  const { createUser, updateUserProfile, loading, googleLogin, gitHubLogin } =
+    useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
 
   const location = useLocation();
@@ -33,6 +34,28 @@ const SignUp = () => {
       })
       .catch((error) => {
         console.log(error);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((res) => {
+        navigate(from);
+        toast.success("Login Success");
+      })
+      .catch((err) => {
+        toast.error("Enter A Valid Google Account");
+      });
+  };
+
+  const handleGitHubLogin = () => {
+    gitHubLogin()
+      .then((res) => {
+        navigate(from);
+        toast.success("Login Success");
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -141,11 +164,19 @@ const SignUp = () => {
                 <div className="divider font-semibold">or</div>
                 <div>
                   <div className="mt-4 flex md:flex-row flex-col justify-between gap-4 items-center">
-                    <button className="flex px-3 py-3 w-full rounded-md justify-center items-center gap-2 border-2">
+                    <button
+                      onClick={handleGoogleLogin}
+                      disabled={loading === true}
+                      className="flex px-3 py-3 w-full rounded-md justify-center items-center gap-2 border-2"
+                    >
                       <FcGoogle size={30} />
                       Continue to Google
                     </button>
-                    <button className="flex px-3 py-3 w-full rounded-md justify-center items-center gap-2 border-2">
+                    <button
+                      onClick={handleGitHubLogin}
+                      disabled={loading === true}
+                      className="flex px-3 py-3 w-full rounded-md justify-center items-center gap-2 border-2"
+                    >
                       <FaGithub size={30} />
                       Continue to Github
                     </button>
