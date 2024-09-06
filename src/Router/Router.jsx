@@ -3,6 +3,7 @@ import Root from "../Pages/Root/Root";
 import SignUp from "../Pages/SignUp/SignUp";
 import SignIn from "../Pages/SignIn/SignIn";
 import Product from "../Pages/Product/Product";
+import PrivateRoute from "../Pages/PrivateRoute/PrivateRoute";
 
 const Router = createBrowserRouter([
   {
@@ -19,7 +20,11 @@ const Router = createBrowserRouter([
       },
       {
         path: "/product",
-        element: <Product />,
+        element: (
+          <PrivateRoute>
+            <Product />
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,12 +1,26 @@
 import axios from "axios";
 import { useState } from "react";
 import ProductCard from "./ProductCard";
+import { useQuery } from "@tanstack/react-query";
 
 const Product = () => {
   const [category, setCategory] = useState("");
   const [rocking, setRocking] = useState(true);
   const [side, setSide] = useState(true);
   const [lounge, setLounge] = useState(true);
+
+  const { refetch, data: product = [] } = useQuery({
+    queryKey: ["product"],
+    queryFn: async () => {
+      const res = await axios.get("http://localhost:4000/allProduct", {
+        withCredentials: true,
+      });
+      return res.data;
+    },
+  });
+
+  console.log(product);
+
   const handleButtonSelect = () => {
     setRocking(true);
     setSide(true);
@@ -31,7 +45,7 @@ const Product = () => {
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-6 gap-6 my-10">
           <div className="col-span-1 ">
-            <div className="bg-gray-200 rounded-md min-h-screen">
+            <div className="bg-gray-200 rounded-md md:min-h-screen">
               <div className="flex flex-col space-y-2 py-6">
                 <button
                   onClick={handleButtonSelect}
@@ -61,8 +75,10 @@ const Product = () => {
             </div>
           </div>
           <div className="col-span-5">
-            <div>
-              <ProductCard />
+            <div className="grid grid-cols-1 gap-4 md:gap-10 md:grid-cols-3">
+              {product.map((item) => (
+                <ProductCard key={item._id} item={item} />
+              ))}
             </div>
           </div>
         </div>
