@@ -1,0 +1,110 @@
+[
+  {
+    "title": "Recliner Chair Wood",
+    "image": "https://i.ibb.co/WvJTvGL/39-2-450x572.jpg",
+    "disPrice": "299",
+    "price": "350",
+    "off": "50",
+    "category": "rocking_chair",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Timber Ride Padded",
+    "image": "https://i.ibb.co/CP7NtvF/38-4-450x572.jpg",
+    "disPrice": "59",
+    "price": "75",
+    "off": "50",
+    "category": "rocking_chair",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Colored Wooden Chair",
+    "image": "https://i.ibb.co/p3ymDK8/32-450x572.jpg",
+    "disPrice": "299",
+    "price": "350",
+    "off": "50",
+    "category": "rocking_chair",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Blank Bamboo Wicker",
+    "image": "https://i.ibb.co/nBB2tcD/31-450x572.jpg",
+    "disPrice": "299",
+    "price": "350",
+    "category": "rocking_chair",
+    "off": "50",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Isolated Wooden Rock",
+    "image": "https://i.ibb.co/WvJTvGL/39-2-450x572.jpg",
+    "disPrice": "165",
+    "price": "400",
+    "off": "50",
+    "category": "side_chair",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Minimal Empty Rocking",
+    "image": "https://i.ibb.co/fksPwJC/06-450x572.jpg",
+    "disPrice": "299",
+    "price": "350",
+    "category": "side_chair",
+    "off": "50",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Wood Outdoor Adirondack Chair",
+    "image": "https://i.ibb.co/W3Ngf1H/07-2-1-450x572.jpg",
+    "disPrice": "75",
+    "category": "side_chair",
+    "off": "50",
+    "price": "95",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Solid Wood Bar Storage Cabinet",
+    "image": "https://i.ibb.co/2PQnqLK/05-450x572.jpg",
+    "disPrice": "150",
+    "price": "255",
+    "category": "side_chair",
+    "off": "50",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Floor Lamp With Polyster Shade",
+    "image": "https://i.ibb.co/m98w0wb/02-4-450x572.jpg",
+    "disPrice": "120",
+    "price": "60",
+    "off": "50",
+    "category": "lounge_chair",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Garden Chair With Armrests",
+    "image": "https://i.ibb.co/GHLdkMB/01-2-450x572.jpg",
+    "disPrice": "320",
+    "price": "640",
+    "off": "50",
+    "category": "lounge_chair",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Let Steel Floor Lamp",
+    "image": "https://i.ibb.co/vhLkV1L/01-3-450x572.jpg",
+    "disPrice": "80",
+    "price": "260",
+    "category": "lounge_chair",
+    "off": "50",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  },
+  {
+    "title": "Teak Garden Chair With Armrests",
+    "image": "https://i.ibb.co/CP7NtvF/38-4-450x572.jpg",
+    "disPrice": "40",
+    "price": "90",
+    "category": "lounge_chair",
+    "off": "50",
+    "description": "It has a backrest that can be tilted back, and often a footrest extended"
+  }
+]
