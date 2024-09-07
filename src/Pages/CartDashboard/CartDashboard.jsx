@@ -1,40 +1,72 @@
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useContext } from "react";
 import { MdOutlineEuroSymbol } from "react-icons/md";
+import { AuthContext } from "../../AuthProvider/AuthProvider";
+import DashboardCard from "./DashboardCard";
+import Swal from "sweetalert2";
 const CartDashboard = () => {
+  const { user, cartRefetch, handleUpdateQuantity } = useContext(AuthContext);
+
+  const { refetch, data: myCartProduct = [] } = useQuery({
+    queryKey: ["myCartProduct", !user?.email],
+    queryFn: async () => {
+      const resp = await axios.get(
+        `http://localhost:4000/singleUser/${user?.email}`
+      );
+      return resp.data;
+    },
+  });
+
+  const TotalPrice = myCartProduct.reduce(
+    (AfterValue, currentValue) => AfterValue + parseInt(currentValue.disPrice),
+    0
+  );
+
+  const handleDeleteProduct = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to Delete?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const resp = await axios.delete(
+          `http://localhost:4000/productCartDelete/${id}`,
+          { withCredentials: true }
+        );
+        refetch();
+        cartRefetch();
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your product has been deleted.",
+          icon: "success",
+        });
+      }
+    });
+  };
+
   return (
     <div className="container mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-10 mb-6">
         <div className="col-span-4">
           <h2 className="text-2xl font-semibold my-8">
             An overview of your order
           </h2>
-          <div className="bg-gray-200 rounded-md">
-            <div className="py-6 px-6">
-              <div className="flex justify-between">
-                <div className="flex items-center gap-4">
-                  <span className="border-2 border-gray-300 h-[40px] w-[100px] py-2 rounded-md flex items-center gap-4 font-semibold text-xl px-4">
-                    <button>-</button>1<button>+</button>
-                  </span>
-                  <div className="flex gap-4">
-                    <img
-                      src="https://i.ibb.co/WvJTvGL/39-2-450x572.jpg"
-                      alt=""
-                      className="w-[80px] h-[80px]"
-                    />
-                    <h2 className="font-semibold">Recliner Chair Steel</h2>
-                  </div>
-                </div>
-                <div>
-                  <button className="font-semibold">X</button>
-                </div>
-              </div>
-              <h2 className="flex justify-between">
-                <span></span>
-                <span className="flex items-center text-[17px] font-semibold">
-                  <MdOutlineEuroSymbol />
-                  299.00
-                </span>
-              </h2>
-            </div>
+          <div className="space-y-2">
+            {myCartProduct.map((item) => (
+              <DashboardCard
+                key={item._id}
+                item={item}
+                handleDeleteProduct={handleDeleteProduct}
+                handleUpdateQuantity={handleUpdateQuantity}
+                refetch={refetch}
+              />
+            ))}
           </div>
         </div>
         <div className="col-span-2">
@@ -49,7 +81,7 @@ const CartDashboard = () => {
                   <div>
                     <h2 className="font-semibold text-gray-500 flex items-center">
                       <MdOutlineEuroSymbol />
-                      1071.00
+                      {TotalPrice}.00
                     </h2>
                   </div>
                 </div>
@@ -84,7 +116,7 @@ const CartDashboard = () => {
                 <div>
                   <h2 className="font-semibold text-xl flex items-center">
                     <MdOutlineEuroSymbol />
-                    1071.00
+                    {TotalPrice}.00
                   </h2>
                 </div>
               </div>

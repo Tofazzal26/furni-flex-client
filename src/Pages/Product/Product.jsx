@@ -3,9 +3,11 @@ import { useContext, useState } from "react";
 import ProductCard from "./ProductCard";
 import { useQuery } from "@tanstack/react-query";
 import { AuthContext } from "./../../AuthProvider/AuthProvider";
+import toast from "react-hot-toast";
 
 const Product = () => {
-  const { user, setCartCount, cartCount } = useContext(AuthContext);
+  const { user, setCartCount, cartCount, cartRefetch, handleUpdateQuantity } =
+    useContext(AuthContext);
   const [category, setCategory] = useState("rocking_chair");
   const [rocking, setRocking] = useState(true);
   const [side, setSide] = useState(true);
@@ -78,20 +80,24 @@ const Product = () => {
       `http://localhost:4000/userProduct/${id}`,
       { withCredentials: true }
     );
+
     const single = singleCart.data;
     const updatedSingleCart = single.map((item) => ({
       ...item,
       email: user?.email,
     }));
-
     const cartPost = await axios.post(
       "http://localhost:4000/userCartAdd",
       updatedSingleCart[0],
       { withCredentials: true }
     );
 
-    if (cartPost.data.result.insertedId) {
-      setCartCount((prevCount) => prevCount + 1);
+    if (cartPost.data.acknowledged) {
+      toast.success("Add to cart success");
+
+      cartRefetch();
+    } else {
+      toast.error("Already Add to cart");
     }
   };
 
@@ -153,9 +159,9 @@ const Product = () => {
               <button
                 key={idx}
                 onClick={() => handlePageChange(page)}
-                className={`bg-gray-500 text-white font-semibold px-4 py-2 rounded-md ${
-                  currentPage === page && "bg-blue-500"
-                }`}
+                className={`${
+                  currentPage === page ? "bg-blue-500" : "bg-gray-500"
+                } text-white font-semibold px-4 py-2 rounded-md`}
               >
                 {page + 1}
               </button>

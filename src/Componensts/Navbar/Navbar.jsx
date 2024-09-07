@@ -5,9 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const Navbar = () => {
-  const { user, loading, logOut, setCartCount, cartCount } =
+  const { user, loading, logOut, setCartCount, cartCount, cartProduct } =
     useContext(AuthContext);
-  console.log(cartCount);
 
   const handleLogOut = () => {
     logOut().then().catch();
@@ -139,7 +138,7 @@ const Navbar = () => {
                         />
                       </svg>
                       <span className="badge badge-sm indicator-item">
-                        {cartCount}
+                        {cartCount?.count}
                       </span>
                     </div>
                   </div>
